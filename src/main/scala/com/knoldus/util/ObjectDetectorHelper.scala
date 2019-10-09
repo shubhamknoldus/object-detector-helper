@@ -28,9 +28,10 @@ object ObjectDetectorHelper extends App {
               })
           }
       })
-    } yield Future.sequence(values).map { _ =>
+    } yield Future.sequence(values).map { messageWritten =>
       println("process complete")
-      0
+      println(s"total message written ${messageWritten.length}")
+      messageWritten.length
     }
     println("===================================")
 
@@ -41,6 +42,7 @@ object ObjectDetectorHelper extends App {
   } catch {
     case exception: Exception =>
       println("Exception occurred")
+      exception.printStackTrace()
       ConnectionProvider.fs.close()
   }
 }
