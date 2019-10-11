@@ -14,7 +14,7 @@ object ObjectDetectorHelper extends App {
   try {
 
     println("===================================")
-    val res = for {
+    val res = (for {
       validPath <- ConnectionProvider.getValidPath
       values <- Future.sequence(validPath.map {
         case (path: String, path2: String, path3: String) =>
@@ -32,7 +32,7 @@ object ObjectDetectorHelper extends App {
       println("process complete")
       println(s"total message written ${messageWritten.length}")
       messageWritten.length
-    }
+    }).flatten
     println("===================================")
 
     Await.ready(res.map(_ => {
